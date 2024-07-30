@@ -1,0 +1,76 @@
+﻿===============Selenium PageObjects and PageFactory in C#====================
+
+===============PageObject Design Pattern==========
+-->The PageObject Design Pattern models areas of an UI as objects within test code which can also be considered as Object Repository for Web UI Elements
+
+
+-->Advantages of using Page Object Pattern:
+--Easy to Maintain
+--Easy Readability of scripts
+--Reduce or Eliminate duplicacy
+--Re-usability of code
+--Reliability
+===============================================
+
+================PageFactory in C# ========================
+
+---> The PageFactory in C# Class is an extension to the Page Object Design Pattern
+--> It is an inbuilt POM concept for Selenium WebDriver but it is very optimized. 
+-->It is used to initialize the elements of the Page Object or instantiate the Page Objects itself.
+=============================================
+
+===================================
+PageFactory NameSpace
+PageFactory functionality resides in OpenQA.Selenium.Support.PageObjects.
+======================================
+
+------------code Example------------
+
+=================================================================================
+
+-------------------Create Home Page Objects--------------------
+HomePage PageObject Class
+
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+
+namespace OnlineStore.PageObjects
+{
+    class HomePage
+    {
+        private IWebDriver driver;
+
+        [FindsBy(How = How.Id, Using = "account")]
+        public IWebElement MyAccount { get; set; }
+    }
+}
+========================================================
+
+
+================================================================================
+Create LogIN Page Objects
+
+LoginPage PageObject Class
+
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+
+namespace OnlineStore.PageObjects
+{
+    public class LoginPage
+    {
+        private IWebDriver driver;
+
+        [FindsBy(How = How.Id, Using = "log")]
+        public IWebElement UserName { get; set; }
+
+        [FindsBy(How = How.Id, Using = "pwd")]
+        public IWebElement Password { get; set; }
+
+        [FindsBy(How = How.Id, Using = "login")]
+        public IWebElement Submit { get; set; }
+    }
+}
+================================================================================
+
+==================

@@ -1,0 +1,10 @@
+
+
+
+1) git log --> will give you give the info of the author and email id
+
+2) git config to set author and email
+
+--commands
+1)git config user.name "Priyank3117"
+2)git config user.email "156189713+Priyank3117@users.noreply.github.com"

@@ -1,0 +1,176 @@
+------------How to Handle Multiple Browsers in Selenium CSharp-----------------------
+
+===============Basics of Multiple Window===========
+--Selenium web driver keeps a track of how many windows it opened during a session. 
+--Which means that it will not keep track of any browser window which is 
+-- Opened manually --> But--> Opened by a previous session of Selenium Webdriver By session of selenium WebDriver we mean the duration 
+--from the time we instantiate a WebDriver instance to the time we kill it via WebDriver.Quit() or by manually killing the process. 
+--With this understanding lets first open some windows using Selenium WebDriver. 
+====================================================
+=================Sample code==========================
+==> This will click on the "New Browser Window" button three times. As a result there will be 4 windows that will come into existence. 
+==>Keep in mind that the window opened during driver initialization is the Parent window.
+
+namespace ToolsQA.Selenium_Basics
+{
+    class MultipleWindow
+    {
+        [Test]
+        public void Test()
+        { 
+			IWebDriver driver = new FirefoxDriver();
+
+			driver.Url = "https://demoqa.com/browser-windows";
+
+			// Store the parent window of teh driver
+			String parentWindowHandle = driver.CurrentWindowHandle;
+			Console.WriteLine("Parent window's handle -> " + parentWindowHandle);
+
+			IWebElement clickElement = driver.FindElement(By.Id("button1"));
+
+			// Multiple click to open multiple window
+			for (var i = 0; i < 3; i++)
+			{
+				clickElement.Click();
+				Thread.Sleep(3000);
+			}
+        }
+    }
+}
+======================================================
+
+
+==============Window Handle================
+-->To uniquely identify an opened browser Selenium WebDriver keeps a map of Opened windows VS Window Handle. 
+-->Window handle is a unique string value that uniquely identifies a Browser window on desktop. 
+-->It is guaranteed that each browser will have a unique window handle. 
+-->To get Window handle WebDriver interface provides two methods CurrentWindowHandle - WindowHandles
+
+-->CurrentWindowHandle method return a string value and it returns the Window handle of current focused browser window.
+--> syntax --> driver.CurrentWindowHandle --> return string
+
+-->WindowHandles. This method returns a ReadOnlyCollection (You need to typecast this collection to List Collection by using ToList()) 
+-->of all Window handles of all the browsers that were opened in the session.
+
+--->List<string> lstWindow = driver.WindowHandles.ToList();
+================================================================
+
+
+======================Switching Window=================
+-->driver.SwitchTo().Window(String WindowHandle); 
+-->This command takes in a window handle and switches the driver context on that window. 
+-->Once the Switch happens all the driver commands will go to the newly focused window. 
+-->This is very important to understand, without switching to the desired window we will not be able to perform any action on that window.
+
+==============================================`
+
+============code for switching window================
+namespace ToolsQA.Selenium_Basics
+{
+    class HandleMultipleWindows
+    {
+        [Test]
+        public void Test()
+        { 
+			IWebDriver driver = new FirefoxDriver();
+			driver.Url = "https://demoqa.com/browser-windows";
+
+			// Store the parent window of the driver
+			String parentWindowHandle = driver.CurrentWindowHandle;
+			Console.WriteLine("Parent window's handle -> " + parentWindowHandle);
+
+			IWebElement clickElement = driver.FindElement(By.Id("button1"));
+
+			// Multiple click to open multiple window
+			for (var i = 0; i < 3; i++)
+			{
+				clickElement.Click();
+				Thread.Sleep(3000);
+			}
+
+			// Store all the opened window into the 'list' 
+			List<string> lstWindow = driver.WindowHandles.ToList();
+
+			// Traverse each and every window 
+			foreach (var handle in lstWindow)
+			{
+				Console.WriteLine("Switching to window - > " + handle);
+				Console.WriteLine("Navigating to google.com");
+
+				//Switch to the desired window first and then execute commands using driver
+				driver.SwitchTo().Window(handle); 
+				driver.Navigate().GoToUrl("https://google.com");
+			}
+			
+        }
+    }
+}
+
+=================Closing all the Windows=====================
+-->Note: After closing a window you have to 
+--->explicity switch to another valid window before sending in any WebDriver commands. 
+-->if you fail to do this you wil get following exception.
+-->org.openqa.selenium.NoSuchWindowException: Window not found. The browser window may have been closed.
+===================================================
+
+====In the code below we will close the parent window and then explicitly move focus to the last window in the list.=====
+
+namespace ToolsQA.Selenium_Basics
+{
+    class ClosingAllWindows
+    {
+        [Test]
+        public void Test()
+        { 
+			IWebDriver driver = new FirefoxDriver();
+			driver.Url = "https://demoqa.com/browser-windows";
+
+			// Store the parent window into a variable for further use 
+			String parentWindowHandle = driver.CurrentWindowHandle;
+			Console.WriteLine("Parent window's handle -> " + parentWindowHandle);
+
+			IWebElement clickElement = driver.FindElement(By.Id("button1"));
+			//I am using 'for' loop to get multiple windows by clicking the element
+			for (var i = 0; i < 3; i++)
+			{
+				clickElement.Click();
+				Thread.Sleep(3000);
+			}
+
+			/*
+			* driver.WindowHandles is a ReadOnlycollection So i am using '.ToList()' and store into the 'List<string>'
+			* Again using 'for loop' to traverse all window which are opened by the above loop 
+			* then i use '.SwitchTo().Window'. Basically this is use to switch your control from parent window to current window
+			**/
+			
+			List<string> lstWindow = driver.WindowHandles.ToList();
+			String lastWindowHandle = "";
+			foreach (var handle in lstWindow)
+			{
+				Console.WriteLine("Switching to window - > " + handle);
+				Console.WriteLine("Navigating to google.com");
+
+				//Switch to the desired window first and then execute commands using driver
+				driver.SwitchTo().Window(handle); 
+
+				driver.Navigate().GoToUrl("https://google.com");
+				lastWindowHandle = handle;
+			}
+
+			//Switch to the parent window
+			driver.SwitchTo().Window(parentWindowHandle);
+
+			//close the parent window
+			driver.Close();
+
+			//at this point there is no focused window, we have to explicitly switch back to some window.
+			driver.SwitchTo().Window(lastWindowHandle);
+
+			driver.Url = "https://toolsqa.com";
+			
+        }
+    }
+}
+==============================================
+ 
+ 

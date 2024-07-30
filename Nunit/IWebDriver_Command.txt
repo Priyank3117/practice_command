@@ -1,0 +1,141 @@
+--- Date 18/07/2024
+--------------------NUnit-------------------------------------------------------------
+--Language: Designed for .NET languages (primarily C#).
+--Platform: .NET
+--Attributes: Uses attributes such as [Test], [SetUp], [TearDown], [TestFixture], etc., to define tests and lifecycle methods.
+--Parallel Execution: Supports parallel test execution.
+--Test Organization: Supports categorizing tests with the [Category] attribute.
+--Test Data: Provides the [TestCase] attribute for parameterized tests.
+--Integration: Integrates well with Visual Studio, other .NET IDEs, and CI/CD tools.
+------------------------------------------------------------------------------------------------------
+
+--------------------------------------TestNG---------------------------------
+--Language: Designed for Java.
+--Platform: Java
+--Annotations: Uses annotations such as @Test, @BeforeMethod, @AfterMethod, @BeforeClass, @AfterClass, etc., to define tests 
+and lifecycle methods.
+--Parallel Execution: Supports parallel test execution with fine-grained control over thread pools.
+--Test Organization: Supports grouping tests with the groups attribute and can include or exclude groups in test runs.
+--Test Data: Provides the @DataProvider annotation for parameterized tests.
+--Dependency: Allows defining dependencies between test methods.
+--Integration: Integrates well with Eclipse, IntelliJ IDEA, and various CI/CD tools.
+-------------------------------------------------------------------------------------------------------------------------
+
+--- Date 19/07/2024
+
+1)What is IWebDriver
+--> This is a simplified version of the IWebDriver interface. It declares methods and properties related to browser interactions.
+-->Different browser drivers implement the IWebDriver interface and implement its methods
+
+public interface IWebDriver : IDisposable
+{
+    void Close();
+    void Quit();
+    IWebElement FindElement(By by);
+    ReadOnlyCollection<IWebElement> FindElements(By by);
+    string Url { get; set; }
+    string Title { get; }
+    string PageSource { get; }
+    string CurrentWindowHandle { get; }
+    ReadOnlyCollection<string> WindowHandles { get; }
+    void Navigate().GoToUrl(string url);
+}
+
+public class ChromeDriver : IWebDriver
+{
+    // Implement all methods and properties defined in IWebDriver
+    public void Close()
+    {
+        // Implementation for closing Chrome
+    }
+
+    public void Quit()
+    {
+        // Implementation for quitting Chrome
+    }
+
+    public IWebElement FindElement(By by)
+    {
+        // Implementation for finding an element in Chrome
+    }
+
+    // Other methods and properties...
+}
+
+
+2) What are the browser navigation commands
+-->  syntax --> driver.Navigate().any methods
+--> where any methods = GoToUrl,Forward,back,refresh
+--------------------------------------------------------------------------------------------------------------------
+3)IWebDriver Browser Commands in C#
+
+1) Url commands
+--> driver.Url = "appUrl";  //To open the Url 
+--> String Url = driver.Url;  // To get the opened Url
+
+2)Title commands
+--> Command - driver.Title;
+
+3) PageSource Command
+--> command - driver.PageSource
+
+4,5) close and quit (recall difference)
+-----------------------------------------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------------------------
+4)IWebElement --> webelement command
+
+1) Work on input/textareas
+--> 1) clear 2) sendkeys
+
+2) work on button,link
+--> 1) click ,select
+
+3)element is visible,enable or not  --> return bool
+--> 1) displayed 2)enabled
+
+4) To get the text of the element --> return string
+--> Command - element.Text;
+
+5)TagName Command
+string IWebElement.TagName{ get; } - This method gets the tag name of this element. This accepts nothing as a parameter and returns a String value.
+
+-->Command - element.TagName();
+
+-->This does not return the value of the name attribute but return the tag for e.g. "input" for the element <input name="foo"/>.
+
+6)GetCssValue Command
+string IWebElement.GetCssValue(string propertyName) - This method Fetch CSS property value of the given element. This accepts string as a parameter which is property name.
+
+-->Command - element.GetCssValue();
+
+-->Color values should be returned as rgba strings, so,
+ for example if the "background-color" property is set as "green" in the HTML source, the returned value will be "rgba(0, 255, 0, 1)".
+ 
+ 7)GetAttribute Command
+--string IWebElement.GetAttribute(string attributeName) - This method gets the value of the given attribute of the element. This accepts the String as a parameter and returns a String value.
+
+--Command - element.GetAttribute();
+
+--Attributes are Ids, Name, Class extra and using this method you can get the value of the attributes of any given element.
+
+--IWebElement element = driver.FindElement(By.Id("SubmitButton"));
+--String attValue = element.GetAttribute("id"); //This will return "SubmitButton"
+
+8) size and location command
+------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------
+--------------Difference between FindElement & FindElements Commands-------------
+The difference between FindElement() and FindElements() method is the first returns a WebElement object otherwise it throws an exception and the latter returns a List of WebElements, it can return an empty list if no DOM elements match the query.
+
+----------------------FindElement()------------------- Using id,classname,name,xpath,linktext,partial link
+
+On Zero Match : throws NoSuchElementException
+On One Match : returns WebElement
+On One+ Match : returns the first appearance in DOM
+
+-------------------------FindElements()----------------
+On Zero Match : return an empty list
+On One Match : returns list of one WebElement only
+On One+ Match : returns list with all matching instance
+-----------------------------------------------------------------
