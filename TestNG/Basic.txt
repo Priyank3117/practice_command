@@ -1,0 +1,58 @@
+
+
+1)what is the testNg
+--testng is testing framework for java
+--can be used for unit testing, end-to-end testing, integration and functional testing
+
+ 
+2)-->What is the testng xml file
+-- testng file is allow us to write tests in specific manner from any classes we want (can add tests from different class)
+
+3)-->structure of the testng xml file
+
+suites -> test -> classes -> class -> methods --> include
+
+<suite name="Suite1" verbose="1" >
+
+  <test name="Nopackage" >
+    <classes>
+       <class name="NoPackageTest" />
+    </classes>
+  </test>
+
+  <test name="Regression1">
+    <classes>
+      <class name="test.sample.ParameterSample"/>
+      <class name="test.sample.ParameterTest"/>
+    </classes>
+  </test>
+
+</suite>
+
+4) Hard assertion and soft assertion
+
+--> Hard Assertion is provided by --> org.testng.Assert;
+
+--> In the Hard assertion if the condition fail the assertion will throw error immidiately and 
+--- the execution flow will be stop further test will not execute
+
+--> Hard assertion method are declare static so you can use directly without making its object
+
+syntax -->   String dashBoardTextValue = dashBoardText.getText();
+             String expectedText = "Welcome to SolvSafety";
+             Assert.assertEquals(dashBoardTextValue, expectedText);
+
+-----------Soft Assertion
+
+--> In the soft assertion provided by -->org.testng.Assert;
+
+--> Soft asserts are the asserts which continue the execution even after the Assert condition fails.
+
+--> it is used using below syntax
+
+----------------Creating Instance for Soft Assert:
+-----------------------------------------------------------------
+softAssert softAssert = new SoftAssert();
+------------------------------------------------------
+In the end, we have to call the assertAll() method that is used to throw the exceptions and results at the end of the test.
+------------------------------------
