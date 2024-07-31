@@ -1,0 +1,25 @@
+[Parallelizable(ParallelScope.Self)]
+
+Attribute Name: [Parallelizable]
+Enum Value: ParallelScope.Self
+
+--The [Parallelizable(ParallelScope.Self)] attribute tells NUnit that 
+--the test class or test method it is applied to can be executed in parallel with other tests
+
+On Test Classes: When applied to a test class, it allows all methods within 
+                 that class to be run in parallel with other classes that have the same ParallelScope.
+                Self attribute. It does not affect the parallelism of tests in other classes or in different 
+                 assemblies.
+
+On Test Methods: When applied directly to a test method, it allows that specific 
+                 test method to be run in parallel with other methods marked with the same 
+                 ParallelScope.Self attribute within the same class.
+
+Key Points
+------------------------
+Isolation: Ensure that tests do not share state or resources that 
+           could lead to conflicts when run in parallel.
+
+Performance: Using parallel execution can improve test suite performance
+             but may require careful management of shared resources and 
+             dependencies.
