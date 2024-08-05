@@ -1,0 +1,27 @@
+----------------Mouse click-------------------------
+
+// Generic click
+await page.GetByRole(AriaRole.Button).ClickAsync();
+
+// Double click
+await page.GetByText("Item").DblClickAsync();
+
+// Right click
+await page.GetByText("Item").ClickAsync(new() { Button = MouseButton.Right });
+
+// Shift + click
+await page.GetByText("Item").ClickAsync(new() { Modifiers = new[] { KeyboardModifier.Shift } });
+
+// Ctrl + click or Windows and Linux
+// Meta + click on macOS
+await page.GetByText("Item").ClickAsync(new() { Modifiers = new[] { KeyboardModifier.ControlOrMeta } });
+
+// Hover over element
+await page.GetByText("Item").HoverAsync();
+
+// Click the top left corner
+await page.GetByText("Item").ClickAsync(new() { position = new Position { X = 0, Y = 0 } });
+----------------Mouse click-------------------------
+
+=========================================================================================================
+

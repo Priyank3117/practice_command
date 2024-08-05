@@ -1,0 +1,118 @@
+-----------------Links----------------------------------
+
+//method for get the link using the string
+ await page.GetByRole(AriaRole.Link, new()
+ {
+     Name = "Login",
+     Exact = true,
+ }).ClickAsync();
+------------------------------------------
+
+await Expect(Page
+    .GetByRole(AriaRole.Heading, new() { Name = "Sign up" }))
+    .ToBeVisibleAsync();
+
+await page
+    .GetByRole(AriaRole.Checkbox, new() { Name = "Subscribe" })
+    .CheckAsync();
+
+await page
+    .GetByRole(AriaRole.Button, new() {
+        NameRegex = new Regex("submit", RegexOptions.IgnoreCase)
+    })
+    .ClickAsync();
+
+----------------------------------------------------------
+
+========================================================================================================l
+--We recommend using text locators to find non interactive elements 
+--like div, span, p, etc.
+
+--> For interactive elements like button, a, input, etc. use role locators.
+===============================================================================================
+
+-->You can locate the element by the text it contains:
+ await Expect(Page.GetByText("Welcome, John")).ToBeVisibleAsync();
+
+-->Set an exact match:
+ await Expect(Page
+    .GetByText("Welcome, John", new() { Exact = true }))
+    .ToBeVisibleAsync();
+
+-->Match with a regular expression:
+ await Expect(Page
+    .GetByText(new Regex("welcome, john", RegexOptions.IgnoreCase)))
+    .ToBeVisibleAsync();
+----------------------------------------------------------------------------------------
+
+
+===========================================================
+<img alt="playwright logo" src="/img/playwright-logo.svg" width="100" />
+
+await page.GetByAltText("playwright logo").ClickAsync();
+
+
+============================================================
+--------       XPath and CSS selectors can be tied to the DOM structure or implementation. 
+       These selectors can break when the DOM structure changes. Long CSS or XPath chains below are an example of
+        a bad practice that leads to unstable tests:
+=====================================================
+
+----playwright can also pierce shadow dom
+
+--------------------------------------------------------------------------------------
+--<x-details role=button aria-expanded=true aria-controls=inner-details>
+  <div>Title</div>
+  #shadow-root
+    <div id=inner-details>Details</div>
+</x-details>
+--------------------------------------------------------------------------------------
+
+==================================================================================
+--To click <div>Details</div>:await page.GetByText("Details").ClickAsync();
+--To click <x-details>:await page.Locator("x-details", new() { HasText = "Details" }).ClickAsync();
+-To ensure that <x-details> contains the text "Details":await Expect(Page.Locator("x-details")).ToContainTextAsync("Details");
+===========================================================================================
+
+
+==========================================================================
+-----------------------CSS locator---------------------------
+
+Notes-->CSS selectors pierce open shadow DOM.
+------->Playwright adds custom pseudo-classes like :visible, :has-text(), :has(), :is(), :nth-match() and more.
+
+
+------------------------CSS: matching by text
+// Wrong, will match many elements including <body>
+await page.Locator(":has-text(\"Playwright\")").ClickAsync();
+// Correct, only matches the <article> element
+await page.Locator("article:has-text(\"Playwright\")").ClickAsync();
+
+-------------------------
+#nav-bar :text("Home") 
+- the :text() pseudo-class matches the smallest element containing specified text. Matching is case-insensitive, trims whitespace and searches for a substring.
+
+--For example, this will find an element with text "Home" somewhere inside the #nav-bar element:--> await page.Locator("#nav-bar :text('Home')").ClickAsync();
+
+--------------------------
+
+#nav-bar :text-is("Home") - the :text-is() pseudo-class matches the smallest element with exact text. Exact matching is case-sensitive, trims whitespace and searches for the full string.
+
+For example, :text-is("Log") does not match <button>Log in</button> because <button> contains a single text node "Log in" that is not equal to "Log". However,
+-- :text-is("Log") matches <button> Log <span>in</span></button>, because <button> contains a text node " Log ".
+
+Similarly, :text-is("Download") will not match <button>download</button> because it is case-sensitive.
+
+#nav-bar :text-matches("reg?ex", "i") - the :text-matches() pseudo-class matches the smallest element with text content matching the JavaScript-like regex.
+
+-------------------------------------
+=================CSS: elements that contain other elements
+
+--Following snippet returns text content of an <article> element that has a <div class=promo> inside.
+
+--await page.Locator("article:has(div.promo)").TextContentAsync();
+
+=====================CSS: elements matching one of the conditions
+// Clicks a <button> that has either a "Log in" or "Sign in" text.
+await page.Locator("button:has-text(\"Log in\"), button:has-text(\"Sign in\")").ClickAsync();
+

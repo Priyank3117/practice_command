@@ -1,0 +1,174 @@
+//https://sys.hsiplatformval.com/en/testvaTanna/legacy-platform/login
+
+----------------for running the particular test case use this command
+--dotnet test --filter "Namespace.ClassName.MethodName"
+
+-------------for running the particular test of the class
+--dotnet test --filter "Namespace.ClassName"
+
+-----------
+
+----------------
+--Video-1
+
+--introduction setup and installation
+
+--v-2
+--first create with simple script using the 
+--playwright instance --> browser instance --> page instance and then navigate to some page
+
+
+--v-3
+--inherit the inbuilt PageTest class and then use the method directly
+--understand about the locators in the playwright
+--how many types of locators
+--how to use the locators and how how to use locator asserion in the code
+--locator is async they wait implicitly for the given element -->  by defalut 5 sec
+-----------------------------------------------------------------------------------------------
+
+Date(01-08-2024) (Thursday)
+
+--v--4
+-----------------------------
+--intro of the cli in playwright and how to use it
+--function such like generate code, take screenshot, etc.
+
+--v--5 (Autowaiting mechanism)
+--------------------------------------
+--There is no need to mention for the explicit wait for element to load  playwright will take care of it
+--Locator also use automatic wait mechanism of the playwright that will take care to wait for an element
+
+--Override the autowaiting mechanism --> Page.setDefaultTimeout(1000)--> Now every element wait only for 1000ms
+
+--IsVisibleAsync is not wait for the element to be visible if the element is not visibile then it will show the error
+--instead of this we can use ToBeVisibleAsync it wait fot the element to be visible
+
+
+--v-6 (Page object Model)
+------------------------------------
+--Page object model is the designed patten to write code in better way and in the form of it can be reuseable
+--It enhance the readiability and maintainibility of the code
+
+--Learn expression bodied member syntax
+
+
+--v-7 (Listening Network events)
+------------------------------------
+--playwright allow us to listen various type of event
+--Network Request
+--creation Of ChildPage
+--Creating Dedicated work
+
+
+
+--example
+-----------------------------------------
+var actualResponse: Task<Request> = page. WaitForRequestAsync (urlOrPredicate: "**/List");
+await page.ClickAsync( selector: "text-Product");
+
+//verify with response object
+var getResponse:|Request = await actualResponse;
+
+
+--another example
+----------------------------------------------------------------------
+var response = await page. RunAndWaitForResponseAsync( action: async () =>
+{
+     await page. ClickAsync(selector: "text-Product");
+},
+urlOrPredicate: X :IResponse => x.Url.Contains("/Product/List")); // Task<|Response>
+-------------------------------------------------------------------------------------------------
+await page. RunAndWaitForResponseAsync( action: async () =>
+{
+   await page. ClickAsync( selector: "text-Product");
+}, urlOrPredicate: X :|Response => x.Url.Contains("/Product/List") && x. StatusText == "OK");
+--------------------------------------------------------------------------------------------------------
+public async Task ClickLogin()
+{
+   await _page. RunAndWaitForNavigation Async ( action: async () =>
+{
+  await _lnkLogin. ClickAsync();
+}, new PageRunAndWait For Navigation Options
+{
+   UrlString = "**/Account/Login"
+}); // Task<IResponse?>
+}
+
+---------------------------------------------------------------------------
+
+
+--v--9 intercepting the network 
+----------------------------------------------------------
+
+------------code for network interceptor--------------------
+
+
+   public async Task fkNetworkInterception()
+    {
+        using var pw = await Playwright.CreateAsync();
+    
+        await using var browser = await pw.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = false });
+
+        var contex = await browser.NewContextAsync();
+
+        var page = await contex.NewPageAsync();
+
+        page.Request += (_, request) => Console.WriteLine(request.Method + "--" + request.Url);
+        page.Response += (_, res) => Console.WriteLine(res.Status + "--" + res.Url);
+
+        //all the images are not showing 
+        await page.RouteAsync(url: "**/*", handler: async route =>
+        {
+            if (route.Request.ResourceType == "image")
+                await route.AbortAsync();
+            else
+                await route.ContinueAsync();
+        }); // Task
+
+
+        await page.GotoAsync("https://www.flipkart.com/", new PageGotoOptions
+        {
+            WaitUntil = WaitUntilState.NetworkIdle
+        });
+    }
+}
+-------------------------------------------------------------------------------
+
+
+------------Rest api automation
+
+-----------------basic get request verify------------------
+
+public class UnitTest1
+{
+    [Fact]
+    public async void Test1()
+    {
+        using var pw = await Playwright.CreateAsync();
+        var reqContext = await pw.APIRequest.NewContextAsync(new APIRequestNewContextOptions
+        {
+            BaseURL = "https://localhost:7020",
+            IgnoreHTTPSErrors = true,
+        });
+
+        var response = await reqContext.GetAsync("WeatherForecast");
+
+        Assert.NotNull(response);
+
+        
+    }
+}
+
+-----------------------------------------------------------------------------
+
+ARIA -- > Accessible Rich internet application
+-----------------------------------------------------
+
+--Roles
+--Properties
+--state/value
+
+
+
+
+
