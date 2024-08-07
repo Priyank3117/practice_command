@@ -25,3 +25,71 @@ await page.GetByText("Item").ClickAsync(new() { position = new Position { X = 0,
 
 =========================================================================================================
 
+------------------------------------Type characters------------------------------
+// Press keys one by one
+await page.Locator("#area").TypeAsync("Hello World!");
+
+-----------------------Keys and shortcuts------------------------
+// Hit Enter
+await page.GetByText("Submit").PressAsync("Enter");
+
+// Dispatch Control+Right
+await page.GetByRole(AriaRole.Textbox).PressAsync("Control+ArrowRight");
+
+// Press $ sign on keyboard
+await page.GetByRole(AriaRole.Textbox).PressAsync("$");
+
+Backquote, Minus, Equal, Backslash, Backspace, Tab, Delete, Escape,
+ArrowDown, End, Enter, Home, Insert, PageDown, PageUp, ArrowRight,
+ArrowUp, F1 - F12, Digit0 - Digit9, KeyA - KeyZ, etc.
+===========================================
+
+-------------Simple version produces a single character. This character is case-sensitive, so "a" and "A" will produce different results.
+// <input id=name>
+await page.Locator("#name").PressAsync("Shift+A");
+
+// <input id=name>
+await page.Locator("#name").PressAsync("Shift+ArrowLeft");
+
+==========================================================
+
+---------------------Upload files----------------------------
+// Select one file
+await page.GetByLabel("Upload file").SetInputFilesAsync("myfile.pdf");
+
+// Select multiple files
+await page.GetByLabel("Upload files").SetInputFilesAsync(new[] { "file1.txt", "file12.txt" });
+
+// Select a directory
+await page.GetByLabel("Upload directory").SetInputFilesAsync("mydir");
+
+// Remove all the selected files
+await page.GetByLabel("Upload file").SetInputFilesAsync(new[] {});
+
+// Upload buffer from memory
+await page.GetByLabel("Upload file").SetInputFilesAsync(new FilePayload
+{
+    Name = "file.txt",
+    MimeType = "text/plain",
+    Buffer = System.Text.Encoding.UTF8.GetBytes("this is a test"),
+});
+
+===Extra
+
+-->If you don't have input element in hand (it is created dynamically), 
+  you can handle the Page.FileChooser event or use a corresponding waiting method upon your action:
+
+--> If it is made using the filepicker
+
+var fileChooser = page.RunAndWaitForFileChooserAsync(async () =>
+{
+    await page.GetByLabel("Upload file").ClickAsync();
+});
+await fileChooser.SetFilesAsync("myfile.pdf");
+
+----------------------------------------------
+=======================================================
+Dragging and scrolling can be done using the method --> follow the docs
+
+
+

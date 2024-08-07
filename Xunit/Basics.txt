@@ -1,0 +1,70 @@
+
+[Fact] ==> fact attribute is used to mark the method as test
+=======> used for the method that not take any parametere
+
+[Theory] ==> theory attribut is used to indicate that method is parameterized test
+===> we can supply the data using [InlineData(2,3,4)], [MemberData] or Custom data
+
+
+=======================================================================================================================================================
+The line 
+==========private static readonly object _lock = new object();========================
+--------------------------------
+ 1)is used in C# for thread synchronization, which is crucial in multi-threaded programming to
+  ensure that critical sections of code are executed by only one thread at a time. 
+ 2) object _lock:
+    This declares a field named _lock of type object. The object type is a base type in C# that all types derive from, 
+    and it's commonly used for synchronization purposes.
+
+private static readonly object _lock = new object();
+
+public void CriticalSection()
+{
+    lock (_lock)
+    {
+        // Code here is thread-safe and synchronized
+        // Only one thread can execute this block at a time
+    }
+}
+=======================================================================================================================================================
+
+1) IPage ==> page provides mehtods to interect with the single tab in the Ibrowser
+         ==> one Ibrowser instance has multiple IPage instance
+=========================================================================
+2)IBrowser ==> 
+
+==>A Browser is created via IBrowserType.LaunchAsync()
+
+===>An example of using
+ a IBrowser to create a IPage
+--------------------------------------------
+    using Microsoft.Playwright;
+    await using var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+    {
+      Headless = false,
+   });
+    var firefox = playwright.Firefox;
+    var browser = await firefox.LaunchAsync(new() { Headless = false });
+    var page = await browser.NewPageAsync();
+    await page.GotoAsync("https://www.bing.com");
+    await browser.CloseAsync();
+
+===============================================================
+
+===================IAsyncLifeTime==================
+-->The IAsyncLifetime interface is part of the xUnit testing framework and provides 
+-->IAsyncLifetime is useful for managing asynchronous setup and teardown operations in your tests.
+-->asynchronous initialization and cleanup capabilities for test classes. 
+-->This interface is useful when you need to perform asynchronous operations before and after your tests run.
+
+=================Purpose of IAsyncLifetime===============================================================
+InitializeAsync(asynchronous setup operations): This method is called once before any of the test methods are executed. 
+                				It's intended for asynchronous setup operations.
+DisposeAsync(asynchronous cleanup operations): This method is called once after all the test methods have been executed. 
+              				       It's intended for asynchronous cleanup operations.
+
+1)SemaphoreSlim:
+A SemaphoreSlim instance is used to limit the number of concurrent threads that can access a particular resource or section of code. 
+In this case, it's controlling the number of parallel threads that can enter the InitializeAsync method.
+
+2)
