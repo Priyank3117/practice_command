@@ -53,11 +53,13 @@ public void CriticalSection()
 
 ===================IAsyncLifeTime==================
 -->The IAsyncLifetime interface is part of the xUnit testing framework and provides 
--->IAsyncLifetime is useful for managing asynchronous setup and teardown operations in your tests.
 -->asynchronous initialization and cleanup capabilities for test classes. 
+-->IAsyncLifetime is useful for managing asynchronous setup and teardown operations in your tests.
 -->This interface is useful when you need to perform asynchronous operations before and after your tests run.
 
-=================Purpose of IAsyncLifetime===============================================================
+=========================Xunit Interface====================================================
+
+ 1)=================Purpose of IAsyncLifetime===============================================================
 InitializeAsync(asynchronous setup operations): This method is called once before any of the test methods are executed. 
                 				It's intended for asynchronous setup operations.
 DisposeAsync(asynchronous cleanup operations): This method is called once after all the test methods have been executed. 
@@ -67,4 +69,39 @@ DisposeAsync(asynchronous cleanup operations): This method is called once after 
 A SemaphoreSlim instance is used to limit the number of concurrent threads that can access a particular resource or section of code. 
 In this case, it's controlling the number of parallel threads that can enter the InitializeAsync method.
 
-2)
+
+2)===========================IClassFixture<T>======================================
+1)In xUnit, IClassFixture<T> is an interface
+---------------> used to share a single instance of a fixture class ============ across all tests in a test class.
+syntax ==>  IClassFixture<TFixture> where TFixture : class { }
+
+2)This can be useful for setting up and tearing down expensive or time-consuming resources that are shared across tests.
+====================================================================================================
+
+3)====================================ITestOutputHelper=====================================
+
+1)This interface is used for the logging purpose
+
+public class MyTests
+{
+    private readonly ITestOutputHelper _output;
+
+    public MyTests(ITestOutputHelper output)
+    {
+        _output = output;
+    }
+    
+    [Fact]
+    public void Test1()
+    {
+        _output.WriteLine("This is a message from Test1.");
+        // Test code here
+    }
+
+    [Fact]
+    public void Test2()
+    {
+        _output.WriteLine("This is a message from Test2.");
+        // Test code here
+    }
+}
