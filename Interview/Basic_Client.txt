@@ -1,0 +1,15 @@
+
+1) Intro
+-------------------
+I’m Priyank Patel, a Software Testing professional with 3 years of experience in both manual and automation testing. 
+I have tested web, desktop, and mobile applications, mainly in the e-commerce and healthcare fields.
+ 
+In manual testing, I focus on every detail to ensure thorough testing.
+I am comfortable using IDEs like Visual Studio and Eclipse, and I have hands-on experience with automation tools like Playwright and Selenium  for test scripts.
+ 
+I also have a strong background in creating various types of documentation, such as test cases, test scenarios, test plans, bug reports, and execution reports.
+ 
+As far as the test management tool is concerned I have used Jira, Azure, and TFS as per the client's preference. 
+
+2) Roles and Responsibility
+-----------------------------

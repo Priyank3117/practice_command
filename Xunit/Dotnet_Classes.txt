@@ -1,0 +1,33 @@
+
+========================System.Lazy<T> in C#:==========================
+
+==> System.Lazy<T> is a class in the .NET framework that provides a mechanism for lazy initialization of an object. 
+==> Lazy initialization delays the creation of an object until it is actually needed, which can improve performance and resource management.
+
+====Constructors
+
+1)public Lazy(Func<T> valueFactory);
+
+==> Func<T> valueFactory: A delegate that defines how to create the instance of T.
+==> The object is created only when it's needed.
+
+2) Others
+
+public Lazy(Func<T> valueFactory, bool isThreadSafe);
+public Lazy(LazyThreadSafetyMode mode);
+public Lazy(Func<T> valueFactory, LazyThreadSafetyMode mode);
+
+==>bool isThreadSafe: If true, ensures that the initialization is thread-safe.
+==>LazyThreadSafetyMode: Specifies the thread safety mode (e.g., ExecutionAndPublication, PublicationOnly, None).
+
+
+====Properties
+
+=======================
+public bool IsValueCreated { get; } ==>  Value: Gets the lazily initialized value. Accessing this property will trigger the initialization if it hasn't been created yet.
+
+public T Value { get; }   ==> IsValueCreated: Returns true if the value has been created; otherwise, false.
+============================
+
+
+

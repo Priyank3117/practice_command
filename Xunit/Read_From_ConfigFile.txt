@@ -1,0 +1,45 @@
+
+
+================Method
+
+
+=======================================================================================
+===========return type is TestSettings which is ViewModel
+
+
+===File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) ==> Give you assembly location
+== in the assembly file name is ==> "appsettings.json" ==> so append "/appsettings.json"
+
+==========Configure JSON Serializer===========
+
+========================================================
+==>This configures the JSON serializer to ignore case differences in property names and add a converter to handle string enums.
+
+    var jsonSerializerSettings = new JsonSerializerOptions()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+  jsonSerializerSettings.Converters.Add(new JsonStringEnumConverter());
+========================================================================
+
+=========Deserialize JSON:==================================
+=================================================================
+==>This deserializes the JSON string into a TestSettings object using the configured serializer settings.
+==> This line store all the value matches with the viewmodel or can say store the value in the viewmodel
+=============================================================
+
+public static TestSettings ReadConfig()
+{
+    var configFile = File.ReadAllText(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "/appsettings.json");
+
+    var jsonSerializerSettings = new JsonSerializerOptions()
+    {
+        PropertyNameCaseInsensitive = true
+    };
+
+    jsonSerializerSettings.Converters.Add(new JsonStringEnumConverter());
+
+    return JsonSerializer.Deserialize<TestSettings>(configFile, jsonSerializerSettings);
+}
+=======================================================================================

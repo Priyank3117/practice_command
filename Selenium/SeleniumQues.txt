@@ -1,0 +1,5 @@
+
+
+1) How many types of webdriver apis are available in selenium.
+--> HTML unit driver
+-->android driver 

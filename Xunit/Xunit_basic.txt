@@ -7,7 +7,7 @@
 
 
 =======================================================================================================================================================
-The line 
+The line is used for thread synchronization
 ==========private static readonly object _lock = new object();========================
 --------------------------------
  1)is used in C# for thread synchronization, which is crucial in multi-threaded programming to
@@ -32,6 +32,8 @@ public void CriticalSection()
          ==> one Ibrowser instance has multiple IPage instance
 =========================================================================
 2)IBrowser ==> 
+
+==> In summary, IBrowser is the overall browser instance, while IBrowserContext is a specific isolated session within that browser.
 
 ==>A Browser is created via IBrowserType.LaunchAsync()
 
@@ -60,9 +62,9 @@ public void CriticalSection()
 =========================Xunit Interface====================================================
 
  1)=================Purpose of IAsyncLifetime===============================================================
-InitializeAsync(asynchronous setup operations): This method is called once before any of the test methods are executed. 
+InitializeAsync(Called before every test): This method is called once before any of the test methods are executed. 
                 				It's intended for asynchronous setup operations.
-DisposeAsync(asynchronous cleanup operations): This method is called once after all the test methods have been executed. 
+DisposeAsync(Called after every test): This method is called once after all the test methods have been executed. 
               				       It's intended for asynchronous cleanup operations.
 
 1)SemaphoreSlim:

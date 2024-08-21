@@ -1,0 +1,76 @@
+
+
+1) What is the software testing ? why it is required
+--> software testing is the process to evalute or analyze quality, functionality, and performance of the software
+--> In software testing we test the functional and non functional part of the software
+
+--> why -- The software testing is required to ensure the quality of the software
+        -- Through the testing we can deliverd the bug or error free software to the client   ---> Two testing method can also mentioned in this
+
+
+
+2)Explain the Software Testing Life Cycle (STLC)
+
+--> The software testing life cycle is process which is followed by the qa team while testing the software
+
+=====================================
+--> STLC process include 
+-----------------------------------------
+1)Requirement analysis
+collabrate with --> stakeholders and clients --> understand --> requirement
+
+2)Test planning
+According to the acceptance criteria --> write user story --> based on user story creation of test plan
+
+3)Test case devlopment
+--> On the basis of the test plan --> creation of the test cases --> after creating test case verify by the senior
+
+4)Environment setup
+--> once the test cases are final --> do the set up of environment for testing
+
+5)Test case execution
+--> after environment setup -->  Test Execution
+
+6)Test clouser
+
+=====================
+purpose = example
+=======================
+
+3) What is the purpose of test data? How do you create an effective test data set?
+
+--> Generally In developing stage --> no actual data available for testing purpose --> example of login --> differnt username and password would be needed
+--> developer will be created the data
+
+--> The purpose of the test data is to ensure the testing of the application behaviour with differnt kind of data
+
+--> effecative test data set
+--------------------------------------
+1) data relevancy --> should be relevant --> represent the real world scenario --> 
+ 2) diversity 3) completeness 4) security 5) independence
+
+
+4)What is shift left testing? How different is it from shift right testing?
+
+--> Shift left testing --> By testing early and often we can get identify number of bugs early that could be elimate at staring stage and will not cause big defect in the application
+
+--> On the other hand, shift right testing, also known as testing in production, focuses on conducting testing activities after the development process.
+--> It involves gathering insights from real user feedback and interactions after the software has been deployed. Developers
+--> then use those insights to improve software quality and come up with new feature ideas.
+
+5)Explain the difference between functional testing and non-functional testing.
+--> site https://katalon.com/resources-center/blog/software-testing-interview-questions
+
+6)What is the purpose of test cases and test scenarios?
+--> what is test case and what is test scenarios
+
+--> Test scenarios --> It represent the broader concept of real world situation 
+                   --> we test the software in the differnt situation and all possible ways that can happen
+
+--> Test case --> Test case is a specific set of conditions that are executed to validate a 
+                 particular aspect of the software functionality.
+
+--> Give example of the login
+
+7)What is a defect, and how do you report it effectively?
+--> A defect is flaw in the software that cause 
