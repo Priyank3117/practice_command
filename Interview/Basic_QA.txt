@@ -5,7 +5,7 @@
 --> In software testing we test the functional and non functional part of the software
 
 --> why -- The software testing is required to ensure the quality of the software
-        -- Through the testing we can deliverd the bug or error free software to the client   ---> Two testing method can also mentioned in this
+        -- Through the testing we can deliverd the bug or error free software to the client ---> Two testing method can also mentioned in this
 
 
 
@@ -73,4 +73,76 @@ purpose = example
 --> Give example of the login
 
 7)What is a defect, and how do you report it effectively?
---> A defect is flaw in the software that cause 
+--> A defect is flaw in the software that cause unintended behaviour of software
+--> It also called bug
+--> Try to reproduce the bug and mention the steps for it so developer can easily underastnad and time can be saved in what exactly creating bug
+--> Use defect tracking tool like Jira, Bugzilla, or GitHub Issues to better manage the defect
+--> Write a high specific description that includes all relevant information about the bug 
+--> apply ss if needed
+
+8)Explain the Bug Life Cycle  -> you tube and site
+
+9)What is the difference between manual testing and automated testing?
+
+1) Requirement
+-----------
+Manual --> Manual testing is used for the testing software using human resource
+Automantion -> automation testing is done using automated software testing tool such as selenium and playwright 
+
+2)Accuracy
+-------------------
+Manual --> Manual testing is less accurate as it intervend by human , but it is very helpful for the understanding and testing complex part of software
+Automation --> In the automation testing is more accurate as it is done by machine --> very useful for test task in repeatedly and faster way
+
+3)Speed
+------------------
+Manual --> Manual is quite slow and automation is very speedy process for testing the software
+
+4)Cost Efficiency
+-----------------------------
+manual --> Cost-effective for more complex tests that involve some kind of investigation or judgment , or tests which is very unique that you will not run very often.
+Automation --> Cost-effective for predictable tests that you will repeat many times across multiple test cycles, especially regression tests.
+
+5)Test Coverage
+----------------
+Manual ->Covers a wide range of test scenarios, including tests that need human intervention. 
+Automation ->Covers a wider range of scenarios, such as large, complex, and repetitive ones. Yet, it is not suited for instances that need human intuition and judgment.
+
+6)reliability
+----------------- 
+Manual --> More reliable for performing exploratory testing and for identifying  issues or inconsistencies.
+Automation --> More reliable for repetitive tests.
+
+
+10) Define the term "test plan" and describe its components.
+--> Test Plan is detail guide for testing the software
+--> It tells us how we'll test, what we'll test, and when we will test
+--> The plan cover everything about the testing like goals, resource and possible risks
+--> component --> https://www.browserstack.com/test-management/features/test-run-management/what-is-test-plan
+
+11) What is the regression testing and why automated testing is recommended for regression testing
+--> regression testing is type of software testing that is conducted after the code is update
+--> to ensure that new update not introduced any bug in software
+--> It involves repeatedly testing the same core features of the application, making the task repetitive by nature. 
+
+--> As software evolves number of feature in increase --> num of regression test increase --> this repetative task done easily by the automation script
+
+12) Explain the Test Pyramid
+
+--> Test pyramid is part of test strategy
+
+--> that represent the distribution of the tests based on the complexity and scope
+
+--> Unit test --> base
+--> api test and integration test --> middle
+--> ui test --> on top
+
+
+13)What is exploratory testing? Is it different from ad-hoc testing?
+-->Exploratory testing is an unscripted, manual software testing type where testers examine the system with no pre-established test cases and 
+--no previous exposure to the system. Instead of following a strict test plan, they jump straight to testing and make spontaneous decisions
+ about what to test on the fly. 
+
+
+14)How to test third-party integrations?
+-->Explain user acceptance testing (UAT).

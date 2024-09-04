@@ -1,0 +1,20 @@
+
+1) What is the design pattern and why should we follow that?
+
+--> Desgin pattern is general and resuable soulution to commonly occuring problem within software.
+--> By following design pattern we can maintain our code easily and can be scalable and extendable also.
+
+================Design Patterns for automation=========================
+--> Single Responsibility Design Pattern (SRP)
+1) There is one main page and in that every single element like header footer maincontent has it's own responsibility
+2) object creation of the every element take place in the main page 
+3) Decoupling is the main motive behind it
+
+--> Strategy Design Pattern
+1) strategy design patten is allow us to choose algorith at run time
+2) It uses interface for the implementation of look a like methods such as booking ticktes for round trip, single trip
+
+--> Factory Design Pattern
+--> Execute around Design Pattern
+--> Screenplay Design Pattern
+=================================================================
